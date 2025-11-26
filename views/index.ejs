@@ -1,0 +1,52 @@
+<%- include("layout", { title: "Dashboard", body: `
+
+<div class="bg-white p-6 rounded shadow">
+
+    <h1 class="text-2xl font-bold mb-4">All Links</h1>
+
+    ${error ? `
+        <div class="bg-red-100 text-red-700 p-3 border border-red-300 rounded mb-4">
+            ${error}
+        </div>
+    ` : ""}
+
+    ${links.length === 0 ? `
+        <p class="text-gray-500 text-center py-6">No links yet. Create your first one.</p>
+    ` : `
+
+        <table class="w-full text-left border rounded overflow-hidden">
+            <thead class="bg-gray-100">
+                <tr>
+                    <th class="p-2">Code</th>
+                    <th class="p-2">Target URL</th>
+                    <th class="p-2">Clicks</th>
+                    <th class="p-2">Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                ${links.map(link => `
+                    <tr class="border-b">
+                        <td class="p-2 font-mono">${link.code}</td>
+                        <td class="p-2 truncate text-blue-700">${link.target_url}</td>
+                        <td class="p-2">${link.click_count}</td>
+                        <td class="p-2">
+
+                            <a href="/code/${link.code}" class="text-blue-600 hover:underline mr-3">
+                                Stats
+                            </a>
+
+                            <form action="/delete/${link.code}" method="POST" style="display:inline;">
+                                <button class="text-red-600 hover:underline">Delete</button>
+                            </form>
+
+                        </td>
+                    </tr>
+                `).join("")}
+            </tbody>
+        </table>
+
+    `}
+</div>
+
+` }) %>
