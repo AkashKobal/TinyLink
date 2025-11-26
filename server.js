@@ -13,7 +13,7 @@ app.use(express.json());
 app.use('/api/links', linkRoutes);
 
 // Healthcheck
-app.get('/healthz', (req, res) => {
+app.get('/health', (req, res) => {
     res.json({ ok: true, version: '1.0' });
 });
 
@@ -29,5 +29,5 @@ app.use((err, req, res, next) => {
 // Start
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
-    console.log(`TinyLink backend listening on port ${PORT}`);
+    console.log(`TinyLink backend listening on port http://localhost:${PORT}`);
 });
